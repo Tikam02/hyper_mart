@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { MapPin, PartyPopper, Search, Sparkles, Store } from "lucide-react";
+import { ChevronRight, Circle, MapPin, Sparkles, Store, Tag } from "lucide-react";
 import { usePincode } from "@/lib/pincode-context";
+import { useAuth } from "@/lib/auth-context";
 import { PincodePicker } from "@/components/PincodePicker";
+import { AskMarketBox } from "@/components/AskMarketBox";
+import { AskCard } from "@/components/AskCard";
 import { CouponCard } from "@/components/CouponCard";
 import { api } from "@/lib/api";
 import { placeLabel } from "@/lib/format";
-import type { CouponFeedItem, PincodeInfo } from "@/lib/types";
+import type { Ask, CouponFeedItem, PincodeInfo, ShopPublic, TrendingAsk } from "@/lib/types";
 
 export default function HomePage() {
   const { pincode } = usePincode();
@@ -19,7 +22,7 @@ export default function HomePage() {
       <div className="flex flex-1 flex-col gap-5 px-4 py-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Where should we look?</h1>
-          <p className="mt-1 text-sm text-muted">Find sales and offers from shops near you.</p>
+          <p className="mt-1 text-sm text-muted">Find shops, ask what&apos;s in stock, and see offers near you.</p>
         </div>
         <PincodePicker onDone={() => setChangingLocation(false)} />
         <Link href="/onboard" className="inline-flex items-center justify-center gap-1.5 self-center text-sm text-muted">
@@ -29,10 +32,36 @@ export default function HomePage() {
     );
   }
 
+  return <HomeFeed pincode={pincode} onChangeLocation={() => setChangingLocation(true)} key={pincode.pincode} />;
+}
+
+function HomeFeed({ pincode, onChangeLocation }: { pincode: PincodeInfo; onChangeLocation: () => void }) {
+  const { user } = useAuth();
+  const [asks, setAsks] = useState<Ask[]>([]);
+
+  useEffect(() => {
+    // Early return rather than clearing state here: a synchronous setState in
+    // an effect body cascades an extra render, and signing out is handled by
+    // deriving the visible list below instead.
+    if (!user) return;
+    let cancelled = false;
+    api
+      .get<Ask[]>("/api/me/asks")
+      .then((rows) => {
+        if (!cancelled) setAsks(rows);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [user]);
+
+  const visibleAsks = user ? asks : [];
+
   return (
-    <div className="flex flex-1 flex-col gap-4 px-4 py-4">
+    <div className="flex flex-1 flex-col gap-5 px-4 py-4">
       <div className="flex items-center justify-between gap-3">
-        <button onClick={() => setChangingLocation(true)} className="flex min-w-0 items-center gap-1.5 text-sm text-muted">
+        <button onClick={onChangeLocation} className="flex min-w-0 items-center gap-1.5 text-sm text-muted">
           <MapPin size={15} className="shrink-0 text-brand" />
           <span className="truncate">{placeLabel(pincode)}</span>
           <span className="shrink-0 font-medium text-brand underline underline-offset-2">Change</span>
@@ -42,15 +71,26 @@ export default function HomePage() {
         </Link>
       </div>
 
-      <h1 className="flex items-center gap-1.5 text-lg font-bold tracking-tight">
-        <Sparkles size={18} className="text-brand" /> Today&apos;s offers near you
-      </h1>
+      <AskMarketBox pincode={pincode.pincode} onAsked={(ask) => setAsks((prev) => [ask, ...prev])} />
 
-      <CouponFeed pincode={pincode} key={pincode.pincode} />
+      {/* Above everything else on purpose: someone reopening the app is usually
+          here to see whether a shop replied. */}
+      {visibleAsks.length > 0 && (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-base font-bold tracking-tight">Your questions</h2>
+          {visibleAsks.slice(0, 3).map((ask) => (
+            <AskCard key={ask.id} ask={ask} />
+          ))}
+        </section>
+      )}
+
+      <OpenNowStrip pincode={pincode} />
+      <OffersSection pincode={pincode} />
+      <TrendingAsks pincode={pincode} />
 
       <Link
         href="/onboard"
-        className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-surface p-4 text-center text-sm text-muted shadow-sm ring-1 ring-border"
+        className="flex items-center justify-center gap-2 rounded-2xl bg-surface p-4 text-center text-sm text-muted shadow-sm ring-1 ring-border"
       >
         <Store size={16} className="text-brand" />
         Own a shop? <span className="font-semibold text-brand">List it free</span>
@@ -59,7 +99,47 @@ export default function HomePage() {
   );
 }
 
-function CouponFeed({ pincode }: { pincode: PincodeInfo }) {
+function OpenNowStrip({ pincode }: { pincode: PincodeInfo }) {
+  const [shops, setShops] = useState<ShopPublic[] | null>(null);
+
+  useEffect(() => {
+    api
+      .get<ShopPublic[]>(`/api/shops?pincode=${encodeURIComponent(pincode.pincode)}`)
+      .then(setShops)
+      .catch(() => setShops([]));
+  }, [pincode.pincode]);
+
+  const open = shops?.filter((s) => s.is_open) ?? [];
+  if (shops === null || open.length === 0) return null;
+
+  return (
+    <section className="flex flex-col gap-3">
+      <div className="flex items-center justify-between">
+        <h2 className="flex items-center gap-1.5 text-base font-bold tracking-tight">
+          <Circle size={9} className="fill-success text-success" strokeWidth={0} /> Open right now
+        </h2>
+        <Link href="/search" className="inline-flex items-center text-sm font-medium text-brand">
+          All shops <ChevronRight size={15} />
+        </Link>
+      </div>
+      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {open.map((s) => (
+          <Link
+            key={s.id}
+            href={`/shops/${s.id}`}
+            className="flex w-36 shrink-0 flex-col gap-1 rounded-2xl bg-surface p-3 shadow-sm ring-1 ring-border"
+          >
+            <Store size={16} className="text-brand" />
+            <span className="truncate text-sm font-semibold">{s.name}</span>
+            <span className="truncate text-xs text-muted">{s.locality ?? s.address_text}</span>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function OffersSection({ pincode }: { pincode: PincodeInfo }) {
   const [coupons, setCoupons] = useState<CouponFeedItem[] | null>(null);
 
   useEffect(() => {
@@ -69,33 +149,49 @@ function CouponFeed({ pincode }: { pincode: PincodeInfo }) {
       .catch(() => setCoupons([]));
   }, [pincode.pincode]);
 
-  if (coupons === null) {
-    return (
-      <div className="flex flex-col gap-3">
-        {[0, 1, 2].map((i) => (
-          <div key={i} className="h-28 animate-pulse rounded-2xl bg-surface shadow-sm ring-1 ring-border" />
-        ))}
-      </div>
-    );
-  }
-
-  if (coupons.length === 0) {
-    return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl bg-surface py-12 text-center shadow-sm ring-1 ring-border">
-        <PartyPopper size={28} className="text-brand" />
-        <p className="text-sm text-muted">No active offers in {pincode.locality} yet.</p>
-        <Link href="/search" className="inline-flex items-center gap-1 text-sm font-semibold text-brand">
-          <Search size={14} /> Browse all shops here instead
-        </Link>
-      </div>
-    );
-  }
+  // Offers are genuinely occasional in a small town, so an empty offers list is
+  // the normal case rather than an error worth a big empty state.
+  if (coupons === null || coupons.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-3">
+    <section className="flex flex-col gap-3">
+      <h2 className="flex items-center gap-1.5 text-base font-bold tracking-tight">
+        <Sparkles size={17} className="text-accent" /> Today&apos;s offers
+      </h2>
       {coupons.map((c) => (
         <CouponCard key={c.id} coupon={c} />
       ))}
-    </div>
+    </section>
+  );
+}
+
+function TrendingAsks({ pincode }: { pincode: PincodeInfo }) {
+  const [terms, setTerms] = useState<TrendingAsk[]>([]);
+
+  useEffect(() => {
+    api
+      .get<TrendingAsk[]>(`/api/asks/nearby/trending?pincode=${encodeURIComponent(pincode.pincode)}`)
+      .then(setTerms)
+      .catch(() => setTerms([]));
+  }, [pincode.pincode]);
+
+  // Stays hidden until several different people have asked for the same thing.
+  // Empty is the correct early state — see the privacy note on the endpoint.
+  if (terms.length === 0) return null;
+
+  return (
+    <section className="flex flex-col gap-2">
+      <h2 className="flex items-center gap-1.5 text-base font-bold tracking-tight">
+        <Tag size={16} className="text-brand" /> People here are asking for
+      </h2>
+      <div className="flex flex-wrap gap-2">
+        {terms.map((t) => (
+          <span key={t.text} className="rounded-full bg-surface px-3 py-1.5 text-sm shadow-sm ring-1 ring-border">
+            {t.text}
+            <span className="ml-1.5 text-xs text-muted">{t.asker_count}</span>
+          </span>
+        ))}
+      </div>
+    </section>
   );
 }

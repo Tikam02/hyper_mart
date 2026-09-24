@@ -89,6 +89,32 @@ export interface ProductRequest extends ProductRequestBase {
   shop_name: string;
 }
 
+/** One shop's slot against a market-wide ask: its reply, or that it hasn't yet. */
+export interface AskReply {
+  request_id: number;
+  shop_id: number;
+  shop_name: string;
+  shop_contact_number: string;
+  shop_is_open: boolean;
+  status: RequestStatus;
+  owner_note: string | null;
+  responded_at: string | null;
+}
+
+/** A question put to every nearby shop at once, rather than to one of them. */
+export interface Ask {
+  id: number;
+  text: string;
+  pincode: string;
+  created_at: string;
+  replies: AskReply[];
+}
+
+export interface TrendingAsk {
+  text: string;
+  asker_count: number;
+}
+
 /** What the owner sees in their inbox — includes who asked, so they can call back. */
 export interface ShopProductRequest extends ProductRequestBase {
   customer_phone: string;

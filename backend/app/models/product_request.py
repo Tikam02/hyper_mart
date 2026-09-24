@@ -21,6 +21,9 @@ class ProductRequest(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     shop_id: Mapped[int] = mapped_column(ForeignKey("shops.id"), index=True)
+    # Set when this row is one shop's copy of a market-wide ask; null when the
+    # customer asked this shop directly from its own page.
+    ask_id: Mapped[int | None] = mapped_column(ForeignKey("market_asks.id"), nullable=True, index=True)
     customer_user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
     product_id: Mapped[int | None] = mapped_column(ForeignKey("products.id"), nullable=True)
 

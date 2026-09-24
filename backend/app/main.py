@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.routers import (
+    asks,
     auth,
     categories,
     coupons,
@@ -44,6 +45,7 @@ Path(settings.upload_dir).mkdir(parents=True, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=settings.upload_dir), name="uploads")
 
 app.include_router(auth.router)
+app.include_router(asks.router)
 app.include_router(shops.router)
 app.include_router(categories.router)
 app.include_router(products.router)
