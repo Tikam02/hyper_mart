@@ -1,12 +1,15 @@
 import type { ReactNode } from "react";
 
-type Variant = "success" | "brand" | "neutral" | "danger";
+// `accent` is the discount/savings badge and is the only variant that should
+// carry the warm accent — see the role split in globals.css.
+type Variant = "success" | "brand" | "accent" | "neutral" | "danger";
 
 const variantStyles: Record<Variant, string> = {
-  success: "bg-success-soft text-success",
-  brand: "bg-brand text-brand-foreground",
-  neutral: "border border-border bg-surface text-foreground/60",
-  danger: "bg-red-100 text-danger",
+  success: "bg-success-soft text-success-soft-foreground",
+  brand: "bg-brand-soft text-brand-soft-foreground",
+  accent: "bg-accent text-accent-foreground",
+  neutral: "border border-border bg-surface text-muted",
+  danger: "bg-danger-soft text-danger-soft-foreground",
 };
 
 export function Badge({

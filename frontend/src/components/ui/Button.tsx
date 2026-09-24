@@ -1,12 +1,18 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 
-type Variant = "primary" | "outline" | "ghost";
+// `accent*` is for claiming an offer and nothing else — see globals.css.
+// Prefer `accent-outline` for it: on the offers feed every card carries a Claim
+// button, and filled ones stack into a wall of terracotta that undoes the whole
+// point of reserving the colour. Filled accent stays for small marks only.
+type Variant = "primary" | "accent" | "accent-outline" | "outline" | "ghost";
 type Size = "md" | "sm";
 
 const variantStyles: Record<Variant, string> = {
   primary: "bg-brand text-brand-foreground shadow-sm hover:bg-brand-hover active:bg-brand-hover",
+  accent: "bg-accent text-accent-foreground shadow-sm hover:bg-accent-hover active:bg-accent-hover",
+  "accent-outline": "border border-accent bg-accent-soft/40 text-accent hover:bg-accent-soft active:bg-accent-soft",
   outline: "border border-brand text-brand hover:bg-brand-soft active:bg-brand-soft",
-  ghost: "text-foreground/70 hover:bg-surface active:bg-surface",
+  ghost: "text-muted hover:bg-surface active:bg-surface",
 };
 
 const sizeStyles: Record<Size, string> = {

@@ -27,7 +27,7 @@ export default function DashboardLayout({ children }: LayoutProps<"/dashboard">)
                 key={tab.href}
                 href={tab.href}
                 className={`flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-xs font-medium ${
-                  active ? "border-b-2 border-brand text-brand" : "border-b-2 border-transparent text-foreground/50"
+                  active ? "border-b-2 border-brand text-brand" : "border-b-2 border-transparent text-muted"
                 }`}
               >
                 <tab.icon size={18} strokeWidth={active ? 2.5 : 2} />

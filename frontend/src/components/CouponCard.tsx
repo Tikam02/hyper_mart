@@ -41,10 +41,10 @@ export function CouponCard({ coupon }: { coupon: CouponFeedItem | Coupon }) {
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           {shopName && (
-            <Link href={`/shops/${coupon.shop_id}`} className="inline-flex items-center gap-2 text-sm font-medium text-foreground/60 hover:text-foreground">
+            <Link href={`/shops/${coupon.shop_id}`} className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground">
               <span className="truncate">{shopName}</span>
               {shopIsOpen !== undefined && (
-                <span className={`inline-flex shrink-0 items-center gap-1 text-xs ${shopIsOpen ? "text-success" : "text-foreground/40"}`}>
+                <span className={`inline-flex shrink-0 items-center gap-1 text-xs ${shopIsOpen ? "text-success" : "text-muted-soft"}`}>
                   <Circle size={7} className="fill-current" strokeWidth={0} />
                   {shopIsOpen ? "Open now" : "Closed"}
                 </span>
@@ -53,31 +53,31 @@ export function CouponCard({ coupon }: { coupon: CouponFeedItem | Coupon }) {
           )}
           <h3 className="mt-0.5 text-base font-semibold leading-snug">{coupon.title}</h3>
         </div>
-        <Badge variant="brand" className="shrink-0 text-sm">
+        <Badge variant="accent" className="shrink-0 text-sm">
           {formatDiscount(coupon.discount_type, coupon.discount_value)}
         </Badge>
       </div>
 
-      <div className="flex items-center gap-4 text-xs text-foreground/45">
+      <div className="flex items-center gap-4 text-xs text-muted">
         <span className="inline-flex items-center gap-1">
           <Clock size={13} /> Posted {hydrated ? timeAgo(coupon.created_at) : dayMonth(coupon.created_at)}
         </span>
         {left && (
-          <span className="inline-flex items-center gap-1 font-medium text-amber-600">
+          <span className="inline-flex items-center gap-1 font-medium text-accent">
             <Timer size={13} /> {left}
           </span>
         )}
       </div>
 
       {claim ? (
-        <div className="flex items-center justify-center gap-2 rounded-xl bg-brand-soft py-3 text-center">
+        <div className="flex items-center justify-center gap-2 rounded-xl bg-accent-soft py-3 text-center">
           <div>
-            <p className="text-xs text-brand-soft-foreground/70">Show this code at the shop</p>
-            <p className="font-mono text-xl font-bold tracking-widest text-brand-soft-foreground">{claim.unique_code}</p>
+            <p className="text-xs text-accent-soft-foreground/80">Show this code at the shop</p>
+            <p className="font-mono text-xl font-bold tracking-widest text-accent-soft-foreground">{claim.unique_code}</p>
           </div>
         </div>
       ) : (
-        <Button variant="outline" onClick={handleClaim} disabled={busy}>
+        <Button variant="accent-outline" onClick={handleClaim} disabled={busy}>
           <Ticket size={16} />
           {busy ? "Claiming..." : "Claim offer"}
         </Button>

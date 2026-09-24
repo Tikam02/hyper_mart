@@ -49,11 +49,11 @@ export function OtpForm({ onVerified, title }: { onVerified?: (user: User) => vo
     return (
       <form onSubmit={handleSendOtp} className="flex flex-col gap-4">
         {title && <h2 className="text-lg font-semibold">{title}</h2>}
-        <label className="flex flex-col gap-1.5 text-sm font-medium text-foreground/70">
+        <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
           Mobile number
           <div className="flex items-center gap-2 rounded-xl bg-surface px-3.5 py-3 shadow-sm ring-1 ring-border focus-within:ring-2 focus-within:ring-brand">
-            <Smartphone size={17} className="text-foreground/35" />
-            <span className="text-foreground/50">+91</span>
+            <Smartphone size={17} className="text-muted-soft" />
+            <span className="text-muted">+91</span>
             <input
               type="tel"
               inputMode="numeric"
@@ -77,14 +77,14 @@ export function OtpForm({ onVerified, title }: { onVerified?: (user: User) => vo
   return (
     <form onSubmit={handleVerify} className="flex flex-col gap-4">
       {title && <h2 className="text-lg font-semibold">{title}</h2>}
-      <p className="text-sm text-foreground/60">Enter the code sent to +91 {phone}</p>
+      <p className="text-sm text-muted">Enter the code sent to +91 {phone}</p>
       {devCode && (
         <p className="rounded-xl bg-brand-soft px-3.5 py-2.5 text-sm text-brand-soft-foreground">
           Dev mode — your code is <span className="font-mono font-semibold">{devCode}</span>
         </p>
       )}
       <div className="flex items-center gap-2 rounded-xl bg-surface px-3.5 py-3 shadow-sm ring-1 ring-border focus-within:ring-2 focus-within:ring-brand">
-        <KeyRound size={17} className="text-foreground/35" />
+        <KeyRound size={17} className="text-muted-soft" />
         <input
           type="text"
           inputMode="numeric"
@@ -100,7 +100,7 @@ export function OtpForm({ onVerified, title }: { onVerified?: (user: User) => vo
       <Button type="submit" disabled={busy || code.length !== 6}>
         {busy ? "Verifying..." : "Verify & continue"}
       </Button>
-      <button type="button" onClick={() => setStep("phone")} className="text-sm text-foreground/50 underline underline-offset-2">
+      <button type="button" onClick={() => setStep("phone")} className="text-sm text-muted underline underline-offset-2">
         Change number
       </button>
     </form>

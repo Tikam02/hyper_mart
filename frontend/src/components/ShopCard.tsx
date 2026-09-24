@@ -26,7 +26,7 @@ export function ShopCard({ shop }: { shop: ShopPublic }) {
           // deliberate rather than broken.
           <div
             className="flex h-full w-full flex-col items-center justify-center gap-1.5"
-            style={{ background: `linear-gradient(135deg, ${accent.soft}, #fdf8f0)` }}
+            style={{ background: `linear-gradient(135deg, ${accent.soft}, var(--background))` }}
           >
             <Store size={30} style={{ color: accent.bg }} className="opacity-35" />
             <span className="text-[11px] font-medium opacity-40" style={{ color: accent.bg }}>
@@ -37,7 +37,7 @@ export function ShopCard({ shop }: { shop: ShopPublic }) {
 
         <span
           className={`absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold shadow-sm backdrop-blur-sm ${
-            shop.is_open ? "bg-white/90 text-success" : "bg-white/90 text-foreground/45"
+            shop.is_open ? "bg-white/90 text-success" : "bg-white/90 text-muted"
           }`}
         >
           <Circle size={6} className="fill-current" strokeWidth={0} />
@@ -50,7 +50,7 @@ export function ShopCard({ shop }: { shop: ShopPublic }) {
           <h3 className="min-w-0 flex-1 truncate font-semibold">{shop.name}</h3>
           {shop.avg_rating != null ? (
             <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold">
-              <Star size={13} className="fill-amber-300 text-amber-300" />
+              <Star size={13} className="fill-star text-star" />
               {shop.avg_rating.toFixed(1)}
               <span className="font-normal text-white/60">({shop.review_count})</span>
             </span>

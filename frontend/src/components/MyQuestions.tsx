@@ -28,7 +28,7 @@ export function MyQuestions() {
       {requests.map((r) => (
         <div key={r.id} className="flex flex-col gap-1.5 rounded-2xl bg-surface p-4 shadow-sm ring-1 ring-border">
           <div className="flex items-start justify-between gap-2">
-            <Link href={`/shops/${r.shop_id}`} className="min-w-0 text-sm font-medium text-foreground/60 hover:text-foreground">
+            <Link href={`/shops/${r.shop_id}`} className="min-w-0 text-sm font-medium text-muted hover:text-foreground">
               <span className="truncate">{r.shop_name}</span>
             </Link>
             {r.status === "pending" ? (
@@ -47,7 +47,7 @@ export function MyQuestions() {
               {r.shop_name}: {r.owner_note}
             </p>
           )}
-          <p className="text-xs text-foreground/40">Asked {timeAgo(r.created_at)}</p>
+          <p className="text-xs text-muted-soft">Asked {timeAgo(r.created_at)}</p>
         </div>
       ))}
     </section>

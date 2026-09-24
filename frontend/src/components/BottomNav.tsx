@@ -26,8 +26,8 @@ export function BottomNav() {
         const label = item.href === "/account" && user?.role === "shop_owner" ? "Shop" : item.label;
         return (
           <Link key={item.href} href={item.href} className="flex flex-1 flex-col items-center gap-1 py-3 text-xs">
-            <Icon size={20} strokeWidth={active ? 2.5 : 2} className={active ? "text-brand" : "text-foreground/45"} />
-            <span className={active ? "font-medium text-brand" : "text-foreground/45"}>{label}</span>
+            <Icon size={20} strokeWidth={active ? 2.5 : 2} className={active ? "text-brand" : "text-muted"} />
+            <span className={active ? "font-medium text-brand" : "text-muted"}>{label}</span>
           </Link>
         );
       })}

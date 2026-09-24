@@ -61,7 +61,7 @@ export function ShopPhotosEditor() {
       <h2 className="flex items-center gap-1.5 font-semibold">
         <ImagePlus size={16} className="text-brand" /> Shop photos
       </h2>
-      <p className="-mt-2 text-sm text-foreground/50">
+      <p className="-mt-2 text-sm text-muted">
         The first photo is what customers see on your card when they browse. Up to {MAX_PHOTOS}.
       </p>
 
@@ -103,7 +103,7 @@ export function ShopPhotosEditor() {
             type="button"
             onClick={() => fileRef.current?.click()}
             disabled={busy}
-            className="flex aspect-square flex-col items-center justify-center gap-1 rounded-xl bg-surface text-foreground/45 shadow-sm ring-1 ring-dashed ring-border transition-colors hover:text-brand disabled:opacity-60"
+            className="flex aspect-square flex-col items-center justify-center gap-1 rounded-xl bg-surface text-muted shadow-sm ring-1 ring-dashed ring-border transition-colors hover:text-brand disabled:opacity-60"
           >
             {busy ? <Loader2 size={20} className="animate-spin" /> : <ImagePlus size={20} />}
             <span className="text-[11px] font-medium">{busy ? "Uploading" : "Add photo"}</span>

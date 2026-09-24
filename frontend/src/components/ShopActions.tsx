@@ -53,11 +53,11 @@ export function ShopActions({ shopId, contactNumber, shopName }: { shopId: numbe
       >
         <MessageCircle size={17} /> Ask on WhatsApp
       </a>
-      <Button variant="outline" onClick={toggleFollow} disabled={busy} className="border-border text-foreground/70">
+      <Button variant="outline" onClick={toggleFollow} disabled={busy} className="border-border text-muted">
         <Heart size={16} className={following ? "fill-brand text-brand" : ""} />
         {following ? "Following" : "Follow"}
       </Button>
-      <Button variant="outline" onClick={share} className="border-border px-3 text-foreground/70">
+      <Button variant="outline" onClick={share} className="border-border px-3 text-muted">
         <Share2 size={16} />
       </Button>
     </div>

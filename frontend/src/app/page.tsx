@@ -19,10 +19,10 @@ export default function HomePage() {
       <div className="flex flex-1 flex-col gap-5 px-4 py-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Where should we look?</h1>
-          <p className="mt-1 text-sm text-foreground/55">Find sales and offers from shops near you.</p>
+          <p className="mt-1 text-sm text-muted">Find sales and offers from shops near you.</p>
         </div>
         <PincodePicker onDone={() => setChangingLocation(false)} />
-        <Link href="/onboard" className="inline-flex items-center justify-center gap-1.5 self-center text-sm text-foreground/55">
+        <Link href="/onboard" className="inline-flex items-center justify-center gap-1.5 self-center text-sm text-muted">
           <Store size={15} /> Own a shop instead? <span className="font-semibold text-brand">List it free</span>
         </Link>
       </div>
@@ -32,7 +32,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-1 flex-col gap-4 px-4 py-4">
       <div className="flex items-center justify-between gap-3">
-        <button onClick={() => setChangingLocation(true)} className="flex min-w-0 items-center gap-1.5 text-sm text-foreground/60">
+        <button onClick={() => setChangingLocation(true)} className="flex min-w-0 items-center gap-1.5 text-sm text-muted">
           <MapPin size={15} className="shrink-0 text-brand" />
           <span className="truncate">{placeLabel(pincode)}</span>
           <span className="shrink-0 font-medium text-brand underline underline-offset-2">Change</span>
@@ -50,7 +50,7 @@ export default function HomePage() {
 
       <Link
         href="/onboard"
-        className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-surface p-4 text-center text-sm text-foreground/60 shadow-sm ring-1 ring-border"
+        className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-surface p-4 text-center text-sm text-muted shadow-sm ring-1 ring-border"
       >
         <Store size={16} className="text-brand" />
         Own a shop? <span className="font-semibold text-brand">List it free</span>
@@ -83,7 +83,7 @@ function CouponFeed({ pincode }: { pincode: PincodeInfo }) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-2xl bg-surface py-12 text-center shadow-sm ring-1 ring-border">
         <PartyPopper size={28} className="text-brand" />
-        <p className="text-sm text-foreground/55">No active offers in {pincode.locality} yet.</p>
+        <p className="text-sm text-muted">No active offers in {pincode.locality} yet.</p>
         <Link href="/search" className="inline-flex items-center gap-1 text-sm font-semibold text-brand">
           <Search size={14} /> Browse all shops here instead
         </Link>

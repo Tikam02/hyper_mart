@@ -32,7 +32,7 @@ export function ShopCatalog({ products, categories }: { products: Product[]; cat
               className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
                 active === t.id
                   ? "bg-brand text-brand-foreground shadow-sm"
-                  : "bg-surface text-foreground/60 ring-1 ring-border"
+                  : "bg-surface text-muted ring-1 ring-border"
               }`}
             >
               {t.name}
@@ -54,7 +54,7 @@ export function ShopCatalog({ products, categories }: { products: Product[]; cat
             )}
             <div className="p-3">
               <p className="truncate text-sm font-medium">{p.name}</p>
-              <p className="text-sm text-foreground/55">{formatPrice(p.price)}</p>
+              <p className="text-sm text-muted">{formatPrice(p.price)}</p>
               {!p.in_stock && (
                 <Badge variant="danger" className="mt-1">
                   Out of stock

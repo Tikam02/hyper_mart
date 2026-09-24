@@ -5,14 +5,16 @@
  * colour on every render, every device and every session — the colour becomes
  * a weak recognition cue for regulars instead of visual noise.
  *
- * All four are dark enough for white text to clear WCAG AA, and sit next to
- * the brand orange without fighting it on the ivory background.
+ * All four are muted enough to sit together on warm paper without shouting,
+ * and each clears WCAG AA against the white text they carry (measured: 6.4,
+ * 8.5, 5.5, 6.7). If you adjust one, re-check it — lightening a swatch to
+ * harmonise is exactly what quietly breaks the label on it.
  */
 const ACCENTS = [
-  { bg: "#c2410c", soft: "#fff1e7" }, // brand orange, deepened
-  { bg: "#7a2f62", soft: "#f9edf4" }, // plum
-  { bg: "#0f766e", soft: "#e7f6f4" }, // teal
-  { bg: "#78350f", soft: "#f7efe6" }, // warm brown
+  { bg: "#0e6b5e", soft: "#e2f1ee" }, // teal — matches the brand
+  { bg: "#7c3457", soft: "#f8ecf2" }, // plum
+  { bg: "#a8501f", soft: "#fbeade" }, // terracotta
+  { bg: "#43606f", soft: "#eaf0f3" }, // slate blue
 ] as const;
 
 export type Accent = (typeof ACCENTS)[number];

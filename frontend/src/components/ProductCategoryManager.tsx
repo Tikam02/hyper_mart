@@ -54,7 +54,7 @@ export function ProductCategoryManager({
       <h2 className="flex items-center gap-1.5 font-semibold">
         <FolderPlus size={16} className="text-brand" /> Catalog sections
       </h2>
-      <p className="-mt-2 text-sm text-foreground/50">
+      <p className="-mt-2 text-sm text-muted">
         Your own shelves — &ldquo;Cold Drinks&rdquo;, &ldquo;Rice &amp; Atta&rdquo;. Customers use these as tabs on your shop page.
       </p>
 
@@ -83,7 +83,7 @@ export function ProductCategoryManager({
                   <button
                     onClick={() => setEditingId(null)}
                     aria-label="Cancel"
-                    className="shrink-0 p-1 text-foreground/35"
+                    className="shrink-0 p-1 text-muted-soft"
                   >
                     <X size={16} />
                   </button>
@@ -98,7 +98,7 @@ export function ProductCategoryManager({
                       setError(null);
                     }}
                     aria-label={`Rename ${c.name}`}
-                    className="shrink-0 p-1 text-foreground/35 hover:text-brand"
+                    className="shrink-0 p-1 text-muted-soft hover:text-brand"
                   >
                     <Pencil size={15} />
                   </button>
@@ -106,7 +106,7 @@ export function ProductCategoryManager({
                     onClick={() => run(() => api.delete(`/api/shops/me/product-categories/${c.id}`))}
                     disabled={busy}
                     aria-label={`Delete ${c.name}`}
-                    className="shrink-0 p-1 text-foreground/35 hover:text-danger"
+                    className="shrink-0 p-1 text-muted-soft hover:text-danger"
                   >
                     <Trash2 size={15} />
                   </button>

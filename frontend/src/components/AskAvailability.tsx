@@ -48,7 +48,7 @@ export function AskAvailability({ shopId, shopName }: { shopId: number; shopName
 
   if (!open) {
     return (
-      <Button variant="outline" onClick={() => setOpen(true)} className="border-border text-foreground/70">
+      <Button variant="outline" onClick={() => setOpen(true)} className="border-border text-muted">
         <MessageCircleQuestion size={16} /> Ask if something&apos;s available
       </Button>
     );
@@ -59,7 +59,7 @@ export function AskAvailability({ shopId, shopName }: { shopId: number; shopName
       <label htmlFor="ask-text" className="text-sm font-medium">
         What are you looking for?
       </label>
-      <p className="-mt-1.5 text-xs text-foreground/50">
+      <p className="-mt-1.5 text-xs text-muted">
         Save yourself the trip — {shopName} gets your question and replies whether they have it.
       </p>
       <input
@@ -82,7 +82,7 @@ export function AskAvailability({ shopId, shopName }: { shopId: number; shopName
           size="sm"
           variant="ghost"
           onClick={() => setOpen(false)}
-          className="text-foreground/50"
+          className="text-muted"
         >
           Cancel
         </Button>

@@ -1,27 +1,72 @@
 @import "tailwindcss";
 
+/*
+ * Two colour roles, deliberately separated.
+ *
+ * The app previously used one brand colour for everything — nav, buttons,
+ * icons, badges and offers were all the same orange, so nothing stood out and
+ * a screen the owner stares at all day was as loud as a discount banner.
+ *
+ *   --brand   calm deep teal. Chrome and primary actions: active nav tab,
+ *             section headings/icons, "Save changes", "Add product",
+ *             "List your shop", focus rings, links.
+ *
+ *   --accent  warm terracotta. RESERVED for commercial urgency, so that a
+ *             saving actually reads as one. Only these four places:
+ *               1. discount badges ("15% OFF")
+ *               2. the "TOP OFFER" tab on the shop page
+ *               3. "Claim offer"
+ *               4. expiry countdowns ("6d left")
+ *             If you are about to use accent anywhere else, it wants brand.
+ *
+ * Every pairing below is checked against WCAG AA (4.5:1 for body text, 3:1 for
+ * large/UI). These screens get used outdoors in daylight on cheap Android
+ * panels, so contrast is a requirement rather than a preference.
+ */
 :root {
-  --background: #fbf7ee;
-  --foreground: #2a2118;
+  /* Surfaces — warm paper, calmer and less yellow than the old ivory */
+  --background: #f7f5f0;
   --surface: #ffffff;
-  --border: #e9e1d0;
+  --surface-sunken: #f1efe9;
+  --border: #e4e0d7;
 
-  --brand: #ea580c;
-  --brand-hover: #c2410c;
+  /* Text. Real tokens rather than opacity maths: foreground/45 on a dim
+     screen in sunlight is illegible, especially at the 10-11px label sizes. */
+  --foreground: #1e2422;
+  --muted: #5a6560;
+  --muted-soft: #79837e;
+
+  --brand: #0e6b5e;
+  --brand-hover: #0a534a;
   --brand-foreground: #ffffff;
-  --brand-soft: #ffedd5;
-  --brand-soft-foreground: #9a3412;
+  --brand-soft: #e2f1ee;
+  --brand-soft-foreground: #0a534a;
 
-  --success: #059669;
-  --success-soft: #d1fae5;
-  --danger: #dc2626;
+  --accent: #b0501c;
+  --accent-hover: #8f3d12;
+  --accent-foreground: #ffffff;
+  --accent-soft: #fbeade;
+  --accent-soft-foreground: #8f3d12;
+
+  --success: #14704a;
+  --success-soft: #dcf0e6;
+  --success-soft-foreground: #0f5b3c;
+  --danger: #b0362b;
+  --danger-soft: #fae9e6;
+  --danger-soft-foreground: #8f2b22;
+
+  /* One warm gold for ratings, replacing three uncoordinated amber-* literals */
+  --star: #d69216;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
   --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-soft: var(--muted-soft);
 
   --color-brand: var(--brand);
   --color-brand-hover: var(--brand-hover);
@@ -29,9 +74,19 @@
   --color-brand-soft: var(--brand-soft);
   --color-brand-soft-foreground: var(--brand-soft-foreground);
 
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-foreground: var(--accent-soft-foreground);
+
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
+  --color-success-soft-foreground: var(--success-soft-foreground);
   --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-soft-foreground: var(--danger-soft-foreground);
+  --color-star: var(--star);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

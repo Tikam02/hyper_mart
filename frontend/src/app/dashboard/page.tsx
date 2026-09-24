@@ -96,15 +96,14 @@ export default function DashboardOverviewPage() {
           </div>
           <div className="min-w-0 flex-1">
             <p className="truncate font-semibold">{shop.name}</p>
-            <p className="text-sm text-foreground/50">{statusLine}</p>
-            {hours && <p className="truncate text-xs text-foreground/40">{hours}</p>}
+            {hours && <p className="truncate text-xs text-muted">{hours}</p>}
           </div>
           {/* With timings set the pill only reports what customers see — the
               clock decides it, so making it a switch would be a lie. */}
           {hasHours ? (
             <span
               className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold ${
-                shop.is_open_now ? "bg-success-soft text-success" : "bg-foreground/10 text-foreground/55"
+                shop.is_open_now ? "bg-success-soft text-success" : "bg-foreground/10 text-muted"
               }`}
             >
               <Circle size={8} className="fill-current" strokeWidth={0} />
@@ -115,7 +114,7 @@ export default function DashboardOverviewPage() {
               onClick={toggleOpen}
               disabled={togglingOpen}
               className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
-                shop.is_open ? "bg-success-soft text-success" : "bg-foreground/10 text-foreground/55"
+                shop.is_open ? "bg-success-soft text-success" : "bg-foreground/10 text-muted"
               }`}
             >
               <Circle size={8} className="fill-current" strokeWidth={0} />
@@ -124,13 +123,18 @@ export default function DashboardOverviewPage() {
           )}
         </div>
 
+        {/* Full width, below the row: the reason sentence is long enough that
+            sharing a line with the status pill wrapped it into a cramped
+            two-line block. */}
+        <p className="mt-2.5 text-sm text-muted">{statusLine}</p>
+
         {hasHours && (
           <button
             onClick={toggleOpen}
             disabled={togglingOpen}
             className={`mt-3 w-full rounded-xl py-2.5 text-sm font-medium transition-colors ${
               shop.is_open
-                ? "bg-background text-foreground/60 ring-1 ring-border hover:text-danger"
+                ? "bg-background text-muted ring-1 ring-border hover:text-danger"
                 : "bg-success-soft text-success"
             }`}
           >
@@ -147,7 +151,7 @@ export default function DashboardOverviewPage() {
         <h2 className="flex items-center gap-1.5 font-semibold">
           <Tag size={16} className="text-brand" /> What kind of shop are you?
         </h2>
-        <p className="mb-2.5 mt-1 text-sm text-foreground/50">
+        <p className="mb-2.5 mt-1 text-sm text-muted">
           How customers find you when browsing. Your catalog&apos;s own sections are set on the Products tab.
         </p>
         <div className="flex flex-wrap gap-2">
@@ -156,7 +160,7 @@ export default function DashboardOverviewPage() {
               key={c.id}
               onClick={() => toggleCategory(c.id)}
               className={`rounded-full px-3.5 py-1.5 text-sm font-medium shadow-sm transition-colors ${
-                selected.has(c.id) ? "bg-brand text-brand-foreground" : "bg-surface text-foreground/60 ring-1 ring-border"
+                selected.has(c.id) ? "bg-brand text-brand-foreground" : "bg-surface text-muted ring-1 ring-border"
               }`}
             >
               {c.name}
@@ -172,7 +176,7 @@ export default function DashboardOverviewPage() {
       <form onSubmit={saveDetails} className="flex flex-col gap-3">
         <h2 className="font-semibold">Shop details</h2>
         <LabeledInput label="Shop name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
-        <label className="flex flex-col gap-1.5 text-sm font-medium text-foreground/70">
+        <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
           About your shop
           <textarea
             value={form.description}
@@ -218,7 +222,7 @@ function LabeledInput({
   maxLength?: number;
 }) {
   return (
-    <label className="flex flex-col gap-1.5 text-sm font-medium text-foreground/70">
+    <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
       {label}
       <input
         type="text"

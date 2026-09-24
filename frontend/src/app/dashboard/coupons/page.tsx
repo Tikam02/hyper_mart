@@ -94,7 +94,7 @@ export default function DashboardCouponsPage() {
               required
               value={redeemCouponId ?? ""}
               onChange={(e) => setRedeemCouponId(Number(e.target.value))}
-              className={`${fieldStyles} appearance-none pr-9 ${redeemCouponId ? "" : "text-foreground/40"}`}
+              className={`${fieldStyles} appearance-none pr-9 ${redeemCouponId ? "" : "text-muted-soft"}`}
             >
               <option value="">Coupon</option>
               {coupons.map((c) => (
@@ -103,7 +103,7 @@ export default function DashboardCouponsPage() {
                 </option>
               ))}
             </select>
-            <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-foreground/40" />
+            <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-soft" />
           </div>
           <input
             required
@@ -144,7 +144,7 @@ export default function DashboardCouponsPage() {
               <option value="percent">% off</option>
               <option value="flat">₹ off</option>
             </select>
-            <ChevronDown size={15} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-foreground/40" />
+            <ChevronDown size={15} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-soft" />
           </div>
           <input
             required
@@ -157,7 +157,7 @@ export default function DashboardCouponsPage() {
             className={`${fieldStyles} flex-1`}
           />
         </div>
-        <label className="flex flex-col gap-1.5 text-sm font-medium text-foreground/70">
+        <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
           Valid until
           <input
             type="datetime-local"
@@ -184,22 +184,22 @@ export default function DashboardCouponsPage() {
         <h2 className="font-semibold">Your coupons ({coupons.length})</h2>
         {coupons.length === 0 && (
           <div className="flex flex-col items-center gap-2 py-10 text-center">
-            <Ticket size={24} className="text-foreground/25" />
-            <p className="text-sm text-foreground/50">No coupons yet — create your first offer above.</p>
+            <Ticket size={24} className="text-muted-soft" />
+            <p className="text-sm text-muted">No coupons yet — create your first offer above.</p>
           </div>
         )}
         {coupons.map((c) => (
           <div key={c.id} className="flex items-center justify-between gap-3 rounded-2xl bg-surface p-4 shadow-sm ring-1 ring-border">
             <div className="min-w-0">
               <p className="truncate font-medium">{c.title}</p>
-              <p className="mt-0.5 text-xs text-foreground/50">
+              <p className="mt-0.5 text-xs text-muted">
                 <span className="font-mono">{c.code}</span> · {timeLeft(c.valid_to) ?? "Expired"}
               </p>
             </div>
             <div className="flex shrink-0 items-center gap-2">
               <Badge variant={c.status === "active" ? "success" : "neutral"}>{c.status}</Badge>
               {c.status === "active" && (
-                <button onClick={() => disableCoupon(c.id)} className="text-xs font-medium text-foreground/40 hover:text-danger">
+                <button onClick={() => disableCoupon(c.id)} className="text-xs font-medium text-muted-soft hover:text-danger">
                   Disable
                 </button>
               )}

@@ -109,7 +109,7 @@ export default function DashboardProductsPage() {
               required
               value={form.category_id}
               onChange={(e) => setForm({ ...form, category_id: e.target.value })}
-              className={`${fieldStyles} appearance-none pr-10 ${form.category_id ? "" : "text-foreground/40"}`}
+              className={`${fieldStyles} appearance-none pr-10 ${form.category_id ? "" : "text-muted-soft"}`}
             >
               <option value="">Select section</option>
               {categories.map((c) => (
@@ -118,7 +118,7 @@ export default function DashboardProductsPage() {
                 </option>
               ))}
             </select>
-            <ChevronDown size={16} className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-foreground/40" />
+            <ChevronDown size={16} className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-soft" />
           </div>
         )}
 
@@ -132,7 +132,7 @@ export default function DashboardProductsPage() {
         />
 
         <div className="relative">
-          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-foreground/40">₹</span>
+          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-muted-soft">₹</span>
           <input
             required
             type="number"
@@ -163,7 +163,7 @@ export default function DashboardProductsPage() {
         ) : (
           <label
             htmlFor="product-image"
-            className="flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-border py-6 text-sm text-foreground/50 hover:border-brand hover:text-brand"
+            className="flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border-2 border-dashed border-border py-6 text-sm text-muted hover:border-brand hover:text-brand"
           >
             <ImagePlus size={20} />
             {uploading ? "Uploading..." : "Add a photo (optional)"}
@@ -181,8 +181,8 @@ export default function DashboardProductsPage() {
         <h2 className="font-semibold">Your products ({products.length})</h2>
         {products.length === 0 && (
           <div className="flex flex-col items-center gap-2 py-10 text-center">
-            <Package size={24} className="text-foreground/25" />
-            <p className="text-sm text-foreground/50">No products yet — add your first one above.</p>
+            <Package size={24} className="text-muted-soft" />
+            <p className="text-sm text-muted">No products yet — add your first one above.</p>
           </div>
         )}
         {products.map((p) =>
@@ -209,7 +209,7 @@ export default function DashboardProductsPage() {
               )}
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{p.name}</p>
-                <p className="truncate text-xs text-foreground/50">
+                <p className="truncate text-xs text-muted">
                   {formatPrice(p.price)}
                   {categories.find((c) => c.id === p.category_id)?.name &&
                     ` · ${categories.find((c) => c.id === p.category_id)?.name}`}
@@ -218,21 +218,21 @@ export default function DashboardProductsPage() {
               <button
                 onClick={() => toggleStock(p)}
                 className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${
-                  p.in_stock ? "bg-success-soft text-success" : "bg-foreground/10 text-foreground/50"
+                  p.in_stock ? "bg-success-soft text-success" : "bg-foreground/10 text-muted"
                 }`}
               >
                 {p.in_stock ? "In stock" : "Out of stock"}
               </button>
               <button
                 onClick={() => setEditingId(p.id)}
-                className="shrink-0 p-1 text-foreground/35 hover:text-brand"
+                className="shrink-0 p-1 text-muted-soft hover:text-brand"
                 aria-label={`Edit ${p.name}`}
               >
                 <Pencil size={16} />
               </button>
               <button
                 onClick={() => removeProduct(p.id)}
-                className="shrink-0 p-1 text-foreground/35 hover:text-danger"
+                className="shrink-0 p-1 text-muted-soft hover:text-danger"
                 aria-label={`Remove ${p.name}`}
               >
                 <Trash2 size={16} />
@@ -257,8 +257,8 @@ function StockToggle({ value, onChange }: { value: boolean; onChange: (v: boolea
             value === state
               ? state
                 ? "bg-success-soft text-success ring-1 ring-success/30"
-                : "bg-foreground/10 text-foreground/60 ring-1 ring-border"
-              : "bg-background text-foreground/45 ring-1 ring-border"
+                : "bg-foreground/10 text-muted ring-1 ring-border"
+              : "bg-background text-muted ring-1 ring-border"
           }`}
         >
           {state ? "In stock" : "Out of stock"}
@@ -339,7 +339,7 @@ function ProductEditor({
 
       <div className="flex gap-2">
         <div className="relative flex-1">
-          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-foreground/40">₹</span>
+          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-muted-soft">₹</span>
           <input
             required
             type="number"
@@ -363,7 +363,7 @@ function ProductEditor({
               </option>
             ))}
           </select>
-          <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-foreground/40" />
+          <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-soft" />
         </div>
       </div>
 
@@ -392,7 +392,7 @@ function ProductEditor({
           />
         </label>
         {imageUrl && (
-          <button type="button" onClick={() => setImageUrl(null)} className="text-sm text-foreground/40 hover:text-danger">
+          <button type="button" onClick={() => setImageUrl(null)} className="text-sm text-muted-soft hover:text-danger">
             Remove
           </button>
         )}
@@ -403,7 +403,7 @@ function ProductEditor({
         <Button type="submit" size="sm" disabled={saving || uploading}>
           <Check size={14} /> {saving ? "Saving..." : "Save"}
         </Button>
-        <Button type="button" variant="outline" size="sm" onClick={onCancel} className="border-border text-foreground/60">
+        <Button type="button" variant="outline" size="sm" onClick={onCancel} className="border-border text-muted">
           Cancel
         </Button>
       </div>

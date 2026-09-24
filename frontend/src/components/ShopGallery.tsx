@@ -23,7 +23,7 @@ export function ShopGallery({
     return (
       <div
         className="flex aspect-[16/9] w-full flex-col items-center justify-center gap-2"
-        style={{ background: `linear-gradient(135deg, ${accent.soft}, #fdf8f0)` }}
+        style={{ background: `linear-gradient(135deg, ${accent.soft}, var(--background))` }}
       >
         <Store size={38} style={{ color: accent.bg }} className="opacity-35" />
         <span className="text-xs font-medium opacity-40" style={{ color: accent.bg }}>

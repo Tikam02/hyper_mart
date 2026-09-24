@@ -52,7 +52,7 @@ export default function OnboardPage() {
       <div className="flex flex-1 flex-col gap-4 px-4 py-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">List your shop, free</h1>
-          <p className="mt-1 text-sm text-foreground/55">Takes under 5 minutes. Verify your number to start.</p>
+          <p className="mt-1 text-sm text-muted">Takes under 5 minutes. Verify your number to start.</p>
         </div>
         <OtpForm />
       </div>
@@ -67,7 +67,7 @@ export default function OnboardPage() {
         </div>
         <div>
           <h1 className="text-xl font-bold tracking-tight">Tell us about your shop</h1>
-          <p className="text-sm text-foreground/55">Add photos, products and offers next.</p>
+          <p className="text-sm text-muted">Add photos, products and offers next.</p>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ function Field({
   maxLength?: number;
 }) {
   return (
-    <label className="flex flex-col gap-1.5 text-sm font-medium text-foreground/70">
+    <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
       {label}
       <input
         type="text"

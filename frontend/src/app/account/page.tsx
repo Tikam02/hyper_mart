@@ -29,7 +29,7 @@ export default function AccountPage() {
           <Smartphone size={20} />
         </div>
         <div>
-          <p className="text-xs text-foreground/45">Signed in as</p>
+          <p className="text-xs text-muted">Signed in as</p>
           <p className="font-semibold">+91 {user.phone}</p>
         </div>
       </div>
@@ -50,7 +50,7 @@ export default function AccountPage() {
 
       <MyQuestions />
 
-      <button onClick={logout} className="inline-flex items-center justify-center gap-1.5 text-sm text-foreground/50">
+      <button onClick={logout} className="inline-flex items-center justify-center gap-1.5 text-sm text-muted">
         <LogOut size={14} /> Sign out
       </button>
     </div>

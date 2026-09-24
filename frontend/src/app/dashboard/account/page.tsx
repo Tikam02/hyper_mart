@@ -49,7 +49,7 @@ export default function DashboardAccountPage() {
           <Smartphone size={20} />
         </div>
         <div className="min-w-0">
-          <p className="text-xs text-foreground/45">Signed in as</p>
+          <p className="text-xs text-muted">Signed in as</p>
           <p className="font-semibold">+91 {user?.phone}</p>
         </div>
       </div>
@@ -58,7 +58,7 @@ export default function DashboardAccountPage() {
         <h2 className="flex items-center gap-1.5 font-semibold">
           <Mail size={16} className="text-brand" /> Contact email
         </h2>
-        <p className="-mt-2 text-sm text-foreground/50">
+        <p className="-mt-2 text-sm text-muted">
           Optional. We&apos;ll use it for receipts and account recovery — your mobile number stays your login.
         </p>
         <input
@@ -86,16 +86,16 @@ export default function DashboardAccountPage() {
         >
           <div className="min-w-0">
             <p className="truncate font-medium">{shop.name}</p>
-            <p className="text-xs text-foreground/45">View public page</p>
+            <p className="text-xs text-muted">View public page</p>
           </div>
-          <ExternalLink size={16} className="shrink-0 text-foreground/35" />
+          <ExternalLink size={16} className="shrink-0 text-muted-soft" />
         </Link>
-        <Link href="/" className="rounded-2xl bg-surface p-4 text-center text-sm font-medium text-foreground/60 shadow-sm ring-1 ring-border">
+        <Link href="/" className="rounded-2xl bg-surface p-4 text-center text-sm font-medium text-muted shadow-sm ring-1 ring-border">
           Browse offers as a customer
         </Link>
       </div>
 
-      <Button variant="outline" onClick={handleLogout} className="border-danger text-danger hover:bg-red-50">
+      <Button variant="outline" onClick={handleLogout} className="border-danger text-danger hover:bg-danger-soft">
         <LogOut size={16} /> Sign out
       </Button>
     </div>

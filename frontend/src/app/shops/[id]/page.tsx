@@ -60,7 +60,7 @@ function Stat({ icon: Icon, value, label }: { icon: typeof Star; value: string; 
     <div className="flex flex-col items-center gap-1 rounded-xl bg-surface px-1 py-3 text-center shadow-sm ring-1 ring-border">
       <Icon size={16} className="text-brand" />
       <span className="text-sm font-semibold leading-none">{value}</span>
-      <span className="text-[10px] leading-tight text-foreground/45">{label}</span>
+      <span className="text-[11px] leading-tight text-muted">{label}</span>
     </div>
   );
 }
@@ -68,9 +68,9 @@ function Stat({ icon: Icon, value, label }: { icon: typeof Star; value: string; 
 function MetaRow({ icon: Icon, label, children }: { icon: typeof Star; label: string; children: React.ReactNode }) {
   return (
     <div className="flex gap-3 px-4 py-3">
-      <Icon size={16} className="mt-0.5 shrink-0 text-foreground/35" />
+      <Icon size={16} className="mt-0.5 shrink-0 text-muted-soft" />
       <div className="min-w-0 flex-1">
-        <p className="text-[11px] uppercase tracking-wide text-foreground/40">{label}</p>
+        <p className="text-[11px] uppercase tracking-wide text-muted">{label}</p>
         <div className="text-sm">{children}</div>
       </div>
     </div>
@@ -101,18 +101,18 @@ export default async function ShopDetailPage({ params }: PageProps<"/shops/[id]"
               {shop.is_open ? "Open now" : "Closed"}
             </Badge>
           </div>
-          <p className="mt-0.5 text-sm text-foreground/55">{shop.locality ?? shop.address_text}</p>
+          <p className="mt-0.5 text-sm text-muted">{shop.locality ?? shop.address_text}</p>
           {shop.avg_rating != null && (
             <p className="mt-1.5 inline-flex items-center gap-1 text-sm font-medium">
-              <Star size={15} className="fill-amber-400 text-amber-400" />
+              <Star size={15} className="fill-star text-star" />
               {shop.avg_rating.toFixed(1)}{" "}
-              <span className="font-normal text-foreground/45">
+              <span className="font-normal text-muted">
                 ({shop.review_count} review{shop.review_count === 1 ? "" : "s"})
               </span>
             </p>
           )}
           {shop.description && (
-            <p className="mt-3 text-sm leading-relaxed text-foreground/70">{shop.description}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted">{shop.description}</p>
           )}
         </div>
 
@@ -159,8 +159,8 @@ export default async function ShopDetailPage({ params }: PageProps<"/shops/[id]"
                 {shop.active_coupons.map((c, i) => (
                   <div key={c.id} className="relative flex w-[86%] shrink-0 snap-start">
                     {i === 0 && (
-                      <div className="absolute left-0 top-0 flex h-full w-6 items-center justify-center rounded-l-xl bg-brand">
-                        <span className="rotate-180 text-[9px] font-bold uppercase tracking-widest text-brand-foreground [writing-mode:vertical-rl]">
+                      <div className="absolute left-0 top-0 flex h-full w-6 items-center justify-center rounded-l-xl bg-accent">
+                        <span className="rotate-180 text-[9px] font-bold uppercase tracking-widest text-accent-foreground [writing-mode:vertical-rl]">
                           Top offer
                         </span>
                       </div>
@@ -190,10 +190,10 @@ export default async function ShopDetailPage({ params }: PageProps<"/shops/[id]"
               </MetaRow>
             )}
             <MetaRow icon={Clock} label="Hours">
-              <span className={shop.is_open ? "text-success" : "text-foreground/50"}>
+              <span className={shop.is_open ? "text-success" : "text-muted"}>
                 {shop.is_open ? "Open now" : "Closed right now"}
               </span>
-              {hours && <p className="text-foreground/55">{hours}</p>}
+              {hours && <p className="text-muted">{hours}</p>}
             </MetaRow>
             <MetaRow icon={MapPin} label="Address">
               <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 hover:underline">

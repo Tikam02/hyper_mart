@@ -24,7 +24,7 @@ export default function ClaimsPage() {
     return (
       <div className="flex flex-1 flex-col gap-4 px-4 py-8">
         <h1 className="text-2xl font-bold tracking-tight">My Coupons</h1>
-        <p className="text-sm text-foreground/55">Verify your number to see coupons you&apos;ve claimed.</p>
+        <p className="text-sm text-muted">Verify your number to see coupons you&apos;ve claimed.</p>
         <OtpForm />
       </div>
     );
@@ -42,8 +42,8 @@ export default function ClaimsPage() {
       )}
       {claims !== null && claims.length === 0 && (
         <div className="flex flex-col items-center gap-2 py-12 text-center">
-          <Ticket size={26} className="text-foreground/30" />
-          <p className="text-sm text-foreground/50">No coupons claimed yet — go find an offer!</p>
+          <Ticket size={26} className="text-muted-soft" />
+          <p className="text-sm text-muted">No coupons claimed yet — go find an offer!</p>
         </div>
       )}
       <div className="flex flex-col gap-3">
@@ -51,7 +51,7 @@ export default function ClaimsPage() {
           <div key={c.id} className="flex items-center justify-between rounded-2xl bg-surface p-4 shadow-sm ring-1 ring-border">
             <div>
               <p className="font-mono text-lg font-bold tracking-widest">{c.unique_code}</p>
-              <p className="text-xs text-foreground/45">Claimed {timeAgo(c.claimed_at)}</p>
+              <p className="text-xs text-muted">Claimed {timeAgo(c.claimed_at)}</p>
             </div>
             <Badge variant={c.status === "redeemed" ? "success" : "brand"}>
               {c.status === "redeemed" && <CheckCircle2 size={12} />}

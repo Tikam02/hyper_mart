@@ -12,7 +12,7 @@ function Stars({ rating, size = 16 }: { rating: number; size?: number }) {
   return (
     <div className="flex gap-0.5">
       {[1, 2, 3, 4, 5].map((n) => (
-        <Star key={n} size={size} className={n <= rating ? "fill-amber-400 text-amber-400" : "text-border"} />
+        <Star key={n} size={size} className={n <= rating ? "fill-star text-star" : "text-border"} />
       ))}
     </div>
   );
@@ -52,7 +52,7 @@ export function ReviewSection({ shopId }: { shopId: number }) {
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map((n) => (
               <button key={n} onClick={() => setRating(n)} aria-label={`${n} star`}>
-                <Star size={24} className={n <= rating ? "fill-amber-400 text-amber-400" : "text-border"} />
+                <Star size={24} className={n <= rating ? "fill-star text-star" : "text-border"} />
               </button>
             ))}
           </div>
@@ -74,9 +74,9 @@ export function ReviewSection({ shopId }: { shopId: number }) {
           <div key={r.id} className="rounded-2xl bg-surface p-4 shadow-sm ring-1 ring-border">
             <div className="flex items-center justify-between">
               <Stars rating={r.rating} />
-              <span className="text-xs text-foreground/40">{timeAgo(r.created_at)}</span>
+              <span className="text-xs text-muted-soft">{timeAgo(r.created_at)}</span>
             </div>
-            {r.text && <p className="mt-2 text-sm text-foreground/80">{r.text}</p>}
+            {r.text && <p className="mt-2 text-sm text-muted">{r.text}</p>}
             {r.shop_reply_text && (
               <p className="mt-2 rounded-lg bg-brand-soft p-2.5 text-sm text-brand-soft-foreground">
                 <span className="font-medium">Shop reply: </span>

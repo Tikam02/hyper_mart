@@ -38,7 +38,7 @@ export default function SearchPage() {
     <div className="flex flex-1 flex-col gap-4 px-4 py-4">
       <h1 className="text-lg font-bold tracking-tight">Shops in {pincode.locality}</h1>
       <div className="relative">
-        <SearchIcon size={17} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-foreground/35" />
+        <SearchIcon size={17} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-soft" />
         <input
           type="text"
           placeholder="Search shop, category or product"
@@ -60,8 +60,8 @@ export default function SearchPage() {
       )}
       {shops !== null && shops.length === 0 && (
         <div className="flex flex-col items-center gap-2 py-12 text-center">
-          <SearchX size={26} className="text-foreground/30" />
-          <p className="text-sm text-foreground/50">No shops found. Try a different search.</p>
+          <SearchX size={26} className="text-muted-soft" />
+          <p className="text-sm text-muted">No shops found. Try a different search.</p>
         </div>
       )}
       <div className="flex flex-col gap-4">

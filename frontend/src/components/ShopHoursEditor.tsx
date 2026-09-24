@@ -54,23 +54,23 @@ export function ShopHoursEditor({ shop, onSaved }: { shop: Shop; onSaved: () => 
       <h2 className="flex items-center gap-1.5 font-semibold">
         <Clock size={16} className="text-brand" /> Shop timings
       </h2>
-      <p className="-mt-2 text-sm text-foreground/50">
+      <p className="-mt-2 text-sm text-muted">
         Set these once and customers see Open or Closed automatically — you don&apos;t have to switch
         anything on and off each day.
       </p>
 
       <div className="flex gap-3">
-        <label className="flex flex-1 flex-col gap-1.5 text-sm font-medium text-foreground/70">
+        <label className="flex flex-1 flex-col gap-1.5 text-sm font-medium text-muted">
           Opens
           <input type="time" value={opensAt} onChange={(e) => setOpensAt(e.target.value)} className={fieldStyles} />
         </label>
-        <label className="flex flex-1 flex-col gap-1.5 text-sm font-medium text-foreground/70">
+        <label className="flex flex-1 flex-col gap-1.5 text-sm font-medium text-muted">
           Closes
           <input type="time" value={closesAt} onChange={(e) => setClosesAt(e.target.value)} className={fieldStyles} />
         </label>
       </div>
 
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-foreground/70">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
         Weekly off
         <select value={weeklyOff} onChange={(e) => setWeeklyOff(e.target.value)} className={fieldStyles}>
           <option value="">No weekly off</option>

@@ -48,7 +48,7 @@ export default function DashboardRequestsPage() {
         <h2 className="flex items-center gap-1.5 font-semibold">
           <MessageCircleQuestion size={16} className="text-brand" /> Customer questions
         </h2>
-        <p className="mt-1 text-sm text-foreground/50">
+        <p className="mt-1 text-sm text-muted">
           People asking whether you stock something. Answering fast is the whole point — they&apos;re deciding
           whether to walk over.
         </p>
@@ -64,8 +64,8 @@ export default function DashboardRequestsPage() {
 
       {requests?.length === 0 && (
         <div className="flex flex-col items-center gap-2 py-12 text-center">
-          <Inbox size={26} className="text-foreground/25" />
-          <p className="text-sm text-foreground/50">No questions yet.</p>
+          <Inbox size={26} className="text-muted-soft" />
+          <p className="text-sm text-muted">No questions yet.</p>
         </div>
       )}
 
@@ -73,14 +73,14 @@ export default function DashboardRequestsPage() {
 
       {pending.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h3 className="text-sm font-semibold text-foreground/60">
+          <h3 className="text-sm font-semibold text-muted">
             Waiting for you ({pending.length})
           </h3>
           {pending.map((r) => (
             <div key={r.id} className="flex flex-col gap-3 rounded-2xl bg-surface p-4 shadow-sm ring-1 ring-brand/30">
               <div>
                 <p className="font-medium">{r.text}</p>
-                <p className="mt-0.5 text-xs text-foreground/45">Asked {timeAgo(r.created_at)}</p>
+                <p className="mt-0.5 text-xs text-muted">Asked {timeAgo(r.created_at)}</p>
               </div>
 
               <a
@@ -110,7 +110,7 @@ export default function DashboardRequestsPage() {
                       variant="outline"
                       disabled={busy}
                       onClick={() => respond(r.id, "unavailable")}
-                      className="border-border text-foreground/60"
+                      className="border-border text-muted"
                     >
                       <X size={14} /> Not available
                     </Button>
@@ -135,7 +135,7 @@ export default function DashboardRequestsPage() {
 
       {answered.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h3 className="text-sm font-semibold text-foreground/60">Answered</h3>
+          <h3 className="text-sm font-semibold text-muted">Answered</h3>
           {answered.map((r) => (
             <div key={r.id} className="flex flex-col gap-2 rounded-2xl bg-surface p-4 shadow-sm ring-1 ring-border">
               <div className="flex items-start justify-between gap-2">
@@ -144,8 +144,8 @@ export default function DashboardRequestsPage() {
                   {r.status === "available" ? "Available" : "Not available"}
                 </Badge>
               </div>
-              {r.owner_note && <p className="text-sm text-foreground/55">You said: {r.owner_note}</p>}
-              <p className="text-xs text-foreground/40">
+              {r.owner_note && <p className="text-sm text-muted">You said: {r.owner_note}</p>}
+              <p className="text-xs text-muted-soft">
                 +91 {r.customer_phone} · answered {r.responded_at ? timeAgo(r.responded_at) : ""}
               </p>
             </div>
