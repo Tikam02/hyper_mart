@@ -141,3 +141,25 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+
+# ---- Hylo Hub project rules ----
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Env
+
+# Node / Next.js
+.next/
+out/
+next-env.d.ts
+
+# Uploads (local dev storage, §9 stores real assets in R2 in prod)
+backend/uploads/
+
+# Misc
+.DS_Store

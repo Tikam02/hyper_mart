@@ -1,0 +1,9 @@
+line-length = 120
+
+[lint]
+select = ["E", "F", "I", "B", "RUF"]
+
+[lint.flake8-bugbear]
+# FastAPI's dependency-injection convention (`param: T = Depends(...)`) is the
+# idiomatic pattern the framework is built around, not a mutable-default bug.
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Path", "fastapi.Cookie", "fastapi.Body"]
