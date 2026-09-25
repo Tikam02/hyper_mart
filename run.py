@@ -23,6 +23,23 @@ COLORS = {"backend": "\033[36m", "frontend": "\033[35m"}
 RESET = "\033[0m"
 
 
+def lan_ip() -> str:
+    """This machine's address on the local network, for testing on a phone.
+
+    Printed on every start because DHCP reassigns it — chasing a stale IP has
+    cost more debugging time on this project than any actual bug. No packets are
+    sent; connect() on a UDP socket just picks the outbound interface.
+    """
+    import socket
+
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+        try:
+            s.connect(("8.8.8.8", 80))
+            return s.getsockname()[0]
+        except OSError:
+            return "localhost"
+
+
 def start_db() -> None:
     print("Starting Postgres...")
     subprocess.run(["docker", "compose", "up", "-d", "db"], cwd=ROOT, check=True)
@@ -101,12 +118,19 @@ def main() -> None:
     procs = [
         spawn(
             "backend",
-            [str(VENV_BIN / "uvicorn"), "app.main:app", "--reload", "--port", "8000"],
+            # --host 0.0.0.0 so the API is reachable from a phone on the same
+            # Wi-Fi. `next dev` already serves on every interface, so without
+            # this the page loads on the phone but every API call goes to
+            # <lan-ip>:8000, where nothing is listening, and the app fails with
+            # "TypeError: Failed to fetch". Dev-only, and the backend's CORS
+            # allowance for private-range origins is gated on ENVIRONMENT=local.
+            [str(VENV_BIN / "uvicorn"), "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"],
             BACKEND,
         ),
         spawn("frontend", ["npm", "run", "dev"], FRONTEND),
     ]
     print("App: http://localhost:3000  |  API docs: http://localhost:8000/docs  |  Ctrl+C to stop")
+    print(f"On your phone (same Wi-Fi): http://{lan_ip()}:3000")
 
     try:
         while all(p.poll() is None for p in procs):
